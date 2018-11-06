@@ -12,7 +12,8 @@ class AddBook extends Component {
             review:'',
             pages:'',
             rating:'',
-            price:''
+            price:'',
+            genId:''
         }
     }
 
@@ -31,7 +32,7 @@ class AddBook extends Component {
     showNewBook = (book) => (
         book.post ?
             <div className="conf_link">
-                Cool !! <Link to={`/books/${book.bookId}`}>
+                You are add new anketa !! <Link to={`/books/${book.bookId}`}>
                     Click the link to see the review
                 </Link>
             </div>
@@ -108,6 +109,15 @@ class AddBook extends Component {
                             placeholder="Enter Gender"
                             value={this.state.formdata.price}
                             onChange={(event)=>this.handleInput(event,'price')}
+                        />
+                    </div>
+
+                    <div className="form_element">
+                        <input
+                            type="number"
+                            placeholder="Enter Genocode"
+                            value={this.state.formdata.genId}
+                            onChange={(event)=>this.handleInput(event,'genId')}
                         />
                     </div>
 

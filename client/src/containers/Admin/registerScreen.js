@@ -1,21 +1,18 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { getUsers, userRegister } from '../../actions';
+import { userRegister } from '../../actions';
 
-class Register extends PureComponent {
+class RegisterScreen extends PureComponent {
 
     state ={
         name:'',
         lastname:'',
         email:'',
         password:'',
+        genId:'',
+        role: 1,
         error:''
     }
-
-    componentWillMount(){
-        this.props.dispatch(getUsers())
-    }
-
 
     handleInputEmail = (event) => {
         this.setState({email:event.target.value})
@@ -29,16 +26,21 @@ class Register extends PureComponent {
     handleInputLastname = (event) => {
         this.setState({lastname:event.target.value})
     } 
+    handleInputGenId = (event) => {
+        this.setState({genId:event.target.value})
+    } 
 
     componentWillReceiveProps(nextProps){
         if(nextProps.user.register === false){
-            this.setState({error:'Error,try again'})
+            this.setState({error:'Error,try again. Maybe your GI busy'})
         } else{
             this.setState({
                 name:'',
                 lastname:'',
                 email:'',
-                password:''
+                password:'',
+                genId:'',
+                role: 1
             })
         }
     }
@@ -51,30 +53,20 @@ class Register extends PureComponent {
             email:this.state.email,
             password:this.state.password,
             name:this.state.name,
-            lastname:this.state.lastname
-        },this.props.user.users))
+            lastname:this.state.lastname,
+            genId:this.state.genId,
+            role:this.state.role
+        },this.props.user.users));
         
     }
-
-    showUsers = (user) =>(
-        user.users ? 
-            user.users.map(item => (
-                <tr key={item._id}>
-                    <td>{item.name}</td>
-                    <td>{item.lastname}</td>
-                    <td>{item.email}</td>
-                </tr>
-            ))
-        :null
-    )
-
 
     render() {
         let user = this.props.user;
         return (
             <div className="rl_container">
                 <form onSubmit={this.submitForm}>
-                    <h2>Add user</h2>
+                    <h2> Enter your data</h2>
+                    <h4>we have adopted real names and surnames</h4>
                     
                     <div className="form_element">
                         <input
@@ -112,27 +104,21 @@ class Register extends PureComponent {
                          />
                     </div>
 
-                    <button type="submit">Add user</button>
+                    <div className="form_element">
+                        <input
+                            type="text"
+                            placeholder="Enter GenId"
+                            value={this.state.genId}
+                            onChange={this.handleInputGenId}
+                         />
+                    </div>
+
+                    <button type="submit">Done</button>
                     <div className="error">
                         {this.state.error}
                     </div>
 
                 </form>
-                <div className="current_users">
-                    <h4>Current admins:</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Lastname</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.showUsers(user)}
-                        </tbody>
-                    </table>
-                </div>
             </div>
         );
     }
@@ -143,4 +129,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(Register)
+export default connect(mapStateToProps)(RegisterScreen)

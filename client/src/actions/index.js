@@ -47,6 +47,29 @@ export function getBookWithReviewer(id){
     }
 }
 
+export function getUserRoleTest(id) {
+    const request = axios.get(`/api/getUser?id=${id}`)
+
+    return (dispatch)=>{
+        request.then(({data})=>{
+            let user = data;
+
+            axios.get(`/api/getUser?id=${user.role}`)
+            .then(({data})=>{
+                let response = {
+                    user,
+                    reviewer:data
+                }
+
+                dispatch({
+                    type:'GET_BOOK_W_REVIEWER',
+                    payload:response
+                })
+            })
+        })
+    }
+}
+
 export function clearBookWithReviewer(){
     return {
         type:'CLEAR_BOOK_W_REVIEWER',
@@ -66,6 +89,7 @@ export function addBook(book){
         payload:request
     }
 }
+
 export function clearNewBook() {
     return {
         type:'CLEAR_NEWBOOK',
@@ -129,6 +153,26 @@ export function clearBook(){
 
 /*========= USER ===========*/
 
+export function getUser(id){
+    const request = axios.get(`/api/getUserRole?id=${id}`)
+                    .then(response => response.data);
+
+    return {
+        type:'GET_USER_ROLE',
+        payload:request
+    }
+}
+
+export function getUserRole(role){
+    const request = axios.get(`/api/getUserRole?user=${role}`)
+                    .then(response => response.data)
+
+    return {
+        type:'GET_USER_POSTS',
+        payload:request
+    }
+}
+
 export function loginUser({email,password}){
     const request = axios.post('/api/login',{email,password})
                 .then(response => response.data)
@@ -177,5 +221,17 @@ export function userRegister(user,userList){
                 payload:response
             })
         })
+    }
+}
+
+/*========= GENOM ===========*/
+
+export function addGen(book){
+    const request = axios.post('/api/gen',book)
+        .then(response => response.data);
+
+    return {
+        type:'ADD_GEN',
+        payload:request
     }
 }

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBooks } from '../actions';
+import axios from 'axios';
 
 import BookItem from '../widgetsUI/book_item';
 
 class HomeContainer extends Component {
 
     componentWillMount(){
-        this.props.dispatch(getBooks(2,0,'desc'))
+        this.props.dispatch(getBooks(5,0,'desc'))
     }
-
 
     renderItems = (books) => (
         books.list ?  

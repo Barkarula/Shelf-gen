@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions'
+import { loginUser } from '../../actions';
+import { Link } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -65,6 +66,16 @@ class Login extends Component {
                         :null
                     }
                     </div>
+
+                    <Link to={`/user/registerScreen`} >
+                        <button type="">Registration</button>
+                    </Link>
+
+                    <h2>Forget password?</h2>
+
+                    <Link to={`/about`} >
+                        <h3>About us</h3>
+                    </Link>
 
                 </form>
             </div>

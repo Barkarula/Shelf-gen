@@ -14,6 +14,7 @@ class UserPosts extends Component {
         user.userPosts ? 
             user.userPosts.map(item => (
                 <tr key={item._id}>
+                    <td>{item.genId}</td>
                     <td><Link to={
                         `/user/edit-post/${item._id}`
                     }>
@@ -21,7 +22,7 @@ class UserPosts extends Component {
                     </Link></td>
                     <td>{item.author}</td>
                     <td>
-                        {moment(item.createAt).format("MM/DD/YY")}
+                        {moment(item.createAt).format("DD/MM/YY")}
                     </td>
                 </tr>
             ))
@@ -36,6 +37,7 @@ class UserPosts extends Component {
                 <table>
                     <thead>
                         <tr>
+                            <th>GenId</th>
                             <th>Name</th>
                             <th>University</th>
                             <th>Date</th>

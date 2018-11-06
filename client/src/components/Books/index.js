@@ -11,7 +11,10 @@ class BookView extends Component {
     componentWillUnmount(){
         this.props.dispatch(clearBookWithReviewer())
     }
-
+    
+//<div className="br_reviewer">
+//<span>Review by:</span> {books.reviewer.name} {books.reviewer.lastname}
+//</div>
     renderBook = (books) => (
         books.book ? 
             <div className="br_container">

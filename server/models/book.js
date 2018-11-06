@@ -30,6 +30,14 @@ const bookSchema = mongoose.Schema({
     ownerId:{
         type:String,
         required:true
+    },
+    genId:{
+        type:Number,
+        default:202020,
+        required:true,
+        unique:1,
+        minlength:6,
+        maxlength:6
     }
 },{timestamps:true})
 

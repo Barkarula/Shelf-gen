@@ -30,6 +30,26 @@ const userSchema = mongoose.Schema({
     },
     token:{
         type:String
+    },
+    genId:{
+        type:Number,
+        default:101010,
+        required:true,
+        unique:1,
+        minlength:6,
+        maxlength:6
+    },
+    rule_0:{
+        type:Number,
+        default:3
+    },
+    rule_1:{
+        type:Number,
+        default:3
+    },
+    rule_2:{
+        type:Number,
+        default:3
     }
 })
 

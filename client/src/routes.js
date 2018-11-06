@@ -9,12 +9,17 @@ import AddReview from './containers/Admin/add'
 import UserPosts from './components/Admin/userPosts'
 import EditReview from './containers/Admin/edit';
 import Register from './containers/Admin/register';
+import RegisterScreen from './containers/Admin/registerScreen';
 import Logout from './components/Admin/logout';
+import About from './components/About/about';
+import Genom from './containers/Genom/add';
 
 import Layout from './hoc/layout'
 import Auth from './hoc/auth'
 
 const Routes = () => {
+    var a = false; // true
+
     return (
         <Layout>
             <Switch>
@@ -24,9 +29,12 @@ const Routes = () => {
                 <Route path="/user" exact component={Auth(User,true)}/>
                 <Route path="/user/add" exact component={Auth(AddReview,true)}/>
                 <Route path="/user/register" exact component={Auth(Register,true)}/>
+                <Route path="/user/registerScreen" exact component={Auth(RegisterScreen,false)}/>
                 <Route path="/user/edit-post/:id" exact component={Auth(EditReview,true)}/>
                 <Route path="/books/:id" exact component={Auth(BookView,null)}/>
                 <Route path="/user/user-reviews" exact component={Auth(UserPosts,true)}/>
+                <Route path="/gen" exact component={Auth(Genom,true)}/>
+                <Route path="/about" exact component={Auth(About,null)}/>
             </Switch>
         </Layout>
     );

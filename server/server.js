@@ -4,13 +4,18 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const config = require('./config/config').get(process.env.NODE_ENV);
 const app = express();
+//const api = express.Router();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE)
 
 const { User } = require('./models/user'); 
 const { Book } = require('./models/book');
-const { auth} = require('./middleware/auth')
+const { Gen } = require('./models/gen');
+const { auth} = require('./middleware/auth');
+//import { permit } from "./middleware/permission"; // middleware for checking if user's role is permitted to make request
+
+//import loadDb from "./loadDb"; // dummy middleware to load db (sets request.db)
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -27,7 +32,6 @@ app.get('/api/auth',auth,(req,res)=>{
         lastname:req.user.lastname
     })
 });
-
 
 app.get('/api/logout',auth,(req,res)=>{
     req.user.deleteToken(req.token,(err,user)=>{
@@ -46,6 +50,15 @@ app.get('/api/getBook',(req,res)=>{
     })
 })
 
+app.get('/api/getUser',(req,res)=>{
+    let id = req.query.id;
+
+    User.findById(id,(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.send(doc);
+    })
+})
+
 app.get('/api/books',(req,res)=>{
     // locahost:3001/api/books?skip=3&limit=2&order=asc
     let skip = parseInt(req.query.skip);
@@ -56,6 +69,22 @@ app.get('/api/books',(req,res)=>{
     Book.find().skip(skip).sort({_id:order}).limit(limit).exec((err,doc)=>{
         if(err) return res.status(400).send(err);
         res.send(doc);
+    })
+})
+
+app.get('/api/getUserRole',(req,res)=>{
+    let id = req.query.id;
+
+    User.findById(id,(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.send(doc);
+    })
+})
+
+app.get('/api/logout',auth,(req,res)=>{
+    req.user.deleteToken(req.token,(err,user)=>{
+        if(err) return res.status(400).send(err);
+        res.sendStatus(200)
     })
 })
 
@@ -85,6 +114,26 @@ app.get('/api/user_posts',(req,res)=>{
     })
 })
 
+app.get('/api/user_role',(req,res)=>{
+    User.find({role:req.query.user}).exec((err,docs)=>{
+        if(err) return res.status(400).send(err);
+        res.send(docs)
+    })
+})
+
+app.get('/api/getUser_role',(req,res)=>{
+    let id = req.query.id;
+
+    User.findById(id,(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            name: doc.name,
+            lastname: doc.lastname,
+            role: doc.role
+        })
+    })
+})
+
 
 // POST //
 app.post('/api/book',(req,res)=>{
@@ -95,6 +144,18 @@ app.post('/api/book',(req,res)=>{
         res.status(200).json({
             post:true,
             bookId: doc._id
+        })
+    })
+})
+
+app.post('/api/gen',(req,res)=>{
+    const book = new Gen(req.body)
+
+    book.save((err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).json({
+            post:true,
+            gen_id: doc._id
         })
     })
 })
@@ -134,10 +195,19 @@ app.post('/api/login',(req,res)=>{
 })
 
 
-
 // UPDATE //
 app.post('/api/book_update',(req,res)=>{
     Book.findByIdAndUpdate(req.body._id,req.body,{new:true},(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            success:true,
+            doc
+        })
+    })
+})
+
+app.post('/api/user_update',(req,res)=>{
+    User.findByIdAndUpdate(req.body._id,req.body,{new:true},(err,doc)=>{
         if(err) return res.status(400).send(err);
         res.json({
             success:true,
@@ -169,3 +239,4 @@ const port = process.env.PORT || 3001;
 app.listen(port,()=>{
     console.log(`SERVER RUNNNING`)
 })
+
