@@ -33,7 +33,7 @@ class Header extends Component {
                 />
 
                 <Link to="/" className="logo">
-                        Genomus  ⚤  
+                        Genomus  ⚤
                 </Link>
        
             </header>

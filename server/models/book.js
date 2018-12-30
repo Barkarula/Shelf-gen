@@ -38,6 +38,18 @@ const bookSchema = mongoose.Schema({
         unique:1,
         minlength:6,
         maxlength:6
+    },
+    rule_0:{
+        type:Number,
+        default:3
+    },
+    rule_1:{
+        type:Number,
+        default:3
+    },
+    rule_2:{
+        type:Number,
+        default:3
     }
 },{timestamps:true})
 

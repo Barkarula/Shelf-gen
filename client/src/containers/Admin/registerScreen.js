@@ -61,7 +61,7 @@ class RegisterScreen extends PureComponent {
     }
 
     render() {
-        let user = this.props.user;
+        //let user = this.props.user;
         return (
             <div className="rl_container">
                 <form onSubmit={this.submitForm}>

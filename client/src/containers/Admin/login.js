@@ -74,7 +74,7 @@ class Login extends Component {
                     <h2>Forget password?</h2>
 
                     <Link to={`/about`} >
-                        <h3>About us</h3>
+                        <h2>About us</h2>
                     </Link>
 
                 </form>

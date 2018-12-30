@@ -154,11 +154,11 @@ export function clearBook(){
 /*========= USER ===========*/
 
 export function getUser(id){
-    const request = axios.get(`/api/getUserRole?id=${id}`)
+    const request = axios.get(`/api/getUser?id=${id}`)
                     .then(response => response.data);
 
     return {
-        type:'GET_USER_ROLE',
+        type:'GET_USER_ID',
         payload:request
     }
 }
@@ -224,14 +224,86 @@ export function userRegister(user,userList){
     }
 }
 
+export function deleteUser(id){
+    const request = axios.delete(`/api/delete_user?id=${id}`)
+                    .then(response => response.data)
+
+    return {
+        type:'DELETE_USER',
+        payload:request
+    }
+}
+
+export function clearUser(){
+    return{
+        type:'CLEAR_USER',
+        payload:{
+            user:null,
+            updateUser:false,
+            userDeleted:false
+        }
+    }
+}
+
 /*========= GENOM ===========*/
 
-export function addGen(book){
-    const request = axios.post('/api/gen',book)
+export function addGen(gen){
+    const request = axios.post('/api/gen',gen)
         .then(response => response.data);
 
     return {
         type:'ADD_GEN',
         payload:request
     }
+}
+
+export function clearNewGen() {
+    return {
+        type:'CLEAR_NEWGEN',
+        payload:{}
+    }
+}
+
+export function getUserGens(userId){
+    const request = axios.get(`/api/user_gens?user=${userId}`)
+                    .then(response => response.data)
+
+    return {
+        type:'GET_USER_GENS',
+        payload:request
+    }
+}
+
+export function updateUser(data){
+    const request = axios.post(`/api/user_update`,data)
+                .then(response => response.data);
+
+    return {
+        type:'UPDATE_USER',
+        payload:request
+    }
+
+}
+
+/*========= GENINFO ===========*/
+
+export function getIgen(id){
+    const request = axios.get(`/api/getIgen?id=${id}`)
+                    .then(response => response.data);
+
+    return {
+        type:'GET_IGEN',
+        payload:request
+    }
+}
+
+export function updateIgen(data){
+    const request = axios.post(`/api/igen_update`,data)
+                .then(response => response.data);
+
+    return {
+        type:'UPDATE_IGEN',
+        payload:request
+    }
+
 }

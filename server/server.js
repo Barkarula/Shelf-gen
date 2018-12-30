@@ -12,10 +12,8 @@ mongoose.connect(config.DATABASE)
 const { User } = require('./models/user'); 
 const { Book } = require('./models/book');
 const { Gen } = require('./models/gen');
+const { IGen } = require('./models/igen');
 const { auth} = require('./middleware/auth');
-//import { permit } from "./middleware/permission"; // middleware for checking if user's role is permitted to make request
-
-//import loadDb from "./loadDb"; // dummy middleware to load db (sets request.db)
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -29,7 +27,39 @@ app.get('/api/auth',auth,(req,res)=>{
         id:req.user._id,
         email:req.user.email,
         name:req.user.name,
-        lastname:req.user.lastname
+        lastname:req.user.lastname,
+        genId:req.user.genId,
+        role:req.user.role,
+        rule_0:req.user.rule_0,
+        rule_1:req.user.rule_1,
+        rule_2:req.user.rule_2,
+        rule_3:req.user.rule_3,
+        rule_4:req.user.rule_4,
+        rule_5:req.user.rule_5,
+        rule_6:req.user.rule_6,
+        rule_7:req.user.rule_7,
+        rule_8:req.user.rule_8,
+        rule_9:req.user.rule_9,
+        rule_10:req.user.rule_10,
+        rule_11:req.user.rule_11,
+        rule_12:req.user.rule_12,
+        rule_13:req.user.rule_13,
+        rule_14:req.user.rule_14,
+        rule_15:req.user.rule_15,
+        rule_16:req.user.rule_16,
+        rule_17:req.user.rule_17,
+        rule_18:req.user.rule_18,
+        rule_19:req.user.rule_19,
+        rule_20:req.user.rule_20,
+        rule_21:req.user.rule_21,
+        rule_22:req.user.rule_22,
+        rule_23:req.user.rule_23,
+        rule_24:req.user.rule_24,
+        rule_25:req.user.rule_25,
+        rule_26:req.user.rule_26,
+        rule_27:req.user.rule_27,
+        rule_28:req.user.rule_28,
+        rule_29:req.user.rule_29
     })
 });
 
@@ -45,6 +75,15 @@ app.get('/api/getBook',(req,res)=>{
     let id = req.query.id;
 
     Book.findById(id,(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.send(doc);
+    })
+})
+
+app.get('/api/getIgen',(req,res)=>{
+    let id = req.query.id;
+
+    IGen.findById(id,(err,doc)=>{
         if(err) return res.status(400).send(err);
         res.send(doc);
     })
@@ -114,6 +153,13 @@ app.get('/api/user_posts',(req,res)=>{
     })
 })
 
+app.get('/api/user_gens',(req,res)=>{
+    Gen.find({ownerGenId:req.query.user}).exec((err,docs)=>{
+        if(err) return res.status(400).send(err);
+        res.send(docs)
+    })
+})
+
 app.get('/api/user_role',(req,res)=>{
     User.find({role:req.query.user}).exec((err,docs)=>{
         if(err) return res.status(400).send(err);
@@ -149,13 +195,25 @@ app.post('/api/book',(req,res)=>{
 })
 
 app.post('/api/gen',(req,res)=>{
-    const book = new Gen(req.body)
+    const gen = new Gen(req.body)
 
-    book.save((err,doc)=>{
+    gen.save((err,doc)=>{
         if(err) return res.status(400).send(err);
         res.status(200).json({
             post:true,
-            gen_id: doc._id
+            gId: doc._id
+        })
+    })
+})
+
+app.post('/api/igen',(req,res)=>{
+    const igen = new IGen(req.body)
+
+    igen.save((err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).json({
+            post:true,
+            igenId: doc._id
         })
     })
 })
@@ -216,12 +274,31 @@ app.post('/api/user_update',(req,res)=>{
     })
 })
 
+app.post('/api/igen_update',(req,res)=>{
+    IGen.findByIdAndUpdate(req.body._id,req.body,{new:true},(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            success:true,
+            doc
+        })
+    })
+})
+
 // DELETE //
 
 app.delete('/api/delete_book',(req,res)=>{
     let id = req.query.id;
 
     Book.findByIdAndRemove(id,(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json(true)
+    })
+})
+
+app.delete('/api/delete_user',(req,res)=>{
+    let id = req.query.id;
+
+    User.findByIdAndRemove(id,(err,doc)=>{
         if(err) return res.status(400).send(err);
         res.json(true)
     })

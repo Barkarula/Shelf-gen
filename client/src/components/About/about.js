@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withPermissions } from "../../PermissionsProvider";
 
 class About extends Component {
     render() {
-        const { permissions } = this.props;
-        //const content = permissions[0] === "read" ? <h1>can read</h1> : <h1>computer says no</h1>;
-        //const content2 = permissions[1] === "read" ? <h1>can read</h1> : <h1>computer says no</h1>;
-        //const { permissions } = this.props;
+    
         return (
             <div className="rl_container">
-                <h4>We are good team. Here will be link on apk. file for 
-                Android version. </h4>
-                <h3>Follow us to social: <a href="https://vk.com/rnimu_rgmu">https://vk.com/rnimu_rgmu</a></h3>
+                <h2>Информация о нас</h2>
+                <h3>Здесь будет файл apk. для Android  </h3>
+                <h3>Мы в социальных сетях: <a href="https://vk.com/rnimu_rgmu">https://vk.com/rnimu_rgmu</a></h3>
+                <h3>Обратная связь: example@gmail.com</h3>
             </div>
         );
     }

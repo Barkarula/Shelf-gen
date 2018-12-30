@@ -1,8 +1,11 @@
 import React from 'react';
 import SideNav from 'react-simple-sidenav';
-import SidenavItems from './sidenav_items'
+import SidenavItems from './sidenav_items';
+
+import { connect } from 'react-redux';
 
 const Nav = (props) => {
+  //console.log(props);
     return (
        <SideNav
             showNav={props.showNav}
@@ -17,4 +20,12 @@ const Nav = (props) => {
     );
 };
 
-export default Nav;
+//export default Nav;
+
+let mapStateToProps = state => {
+  return {
+    user: state.user.role
+  }
+}
+
+export default connect(mapStateToProps)(Nav)

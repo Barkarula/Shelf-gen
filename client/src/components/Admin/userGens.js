@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUserPosts, getUserGens } from '../../actions';
+import { getUserGens } from '../../actions';
 import moment from 'moment-js';
 import { Link } from 'react-router-dom';
 
-
-class UserPosts extends Component {
+class UserGens extends Component {
 
     componentWillMount(){
-        this.props.dispatch(getUserPosts(this.props.user.login.id));
         this.props.dispatch(getUserGens(this.props.user.login.id))
     }
-//{item.genId}
+
     showUserPosts = (user) => (
         user.userPosts ? 
-                        
             user.userPosts.map(item => (
                 <tr key={item._id}>
-                    <td><Link to={
-                        `/user/edit-genom/${item._id}`}>
-                        {item.genId}
-                        </Link>
-                    </td>
+                    <td>{item.genId}</td>
                     <td><Link to={
                         `/user/edit-post/${item._id}`
                     }>
@@ -38,9 +31,7 @@ class UserPosts extends Component {
 
     render() {
         console.log(this.props);
-        console.log(this.props.user.userGens);
         let user = this.props.user;
-        
         return (
             <div className="user_posts">
                 <h4>Your reviews:</h4>
@@ -67,4 +58,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(UserPosts)
+export default connect(mapStateToProps)(UserGens)

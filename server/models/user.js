@@ -32,24 +32,132 @@ const userSchema = mongoose.Schema({
         type:String
     },
     genId:{
-        type:Number,
+        type:String,
         default:101010,
         required:true,
         unique:1,
         minlength:6,
-        maxlength:6
+        maxlength:7
     },
     rule_0:{
         type:Number,
-        default:3
+        default:2
     },
     rule_1:{
         type:Number,
-        default:3
+        default:2
     },
     rule_2:{
         type:Number,
-        default:3
+        default:2
+    },
+    rule_3:{
+        type:Number,
+        default:2
+    },
+    rule_4:{
+        type:Number,
+        default:2
+    },
+    rule_5:{
+        type:Number,
+        default:2
+    },
+    rule_6:{
+        type:Number,
+        default:2
+    },
+    rule_7:{
+        type:Number,
+        default:2
+    },
+    rule_8:{
+        type:Number,
+        default:2
+    },
+    rule_9:{
+        type:Number,
+        default:2
+    },
+    rule_10:{
+        type:Number,
+        default:2
+    },
+    rule_11:{
+        type:Number,
+        default:2
+    },
+    rule_12:{
+        type:Number,
+        default:2
+    },
+    rule_13:{
+        type:Number,
+        default:2
+    },
+    rule_14:{
+        type:Number,
+        default:2
+    },
+    rule_15:{
+        type:Number,
+        default:2
+    },
+    rule_16:{
+        type:Number,
+        default:2
+    },
+    rule_17:{
+        type:Number,
+        default:2
+    },
+    rule_18:{
+        type:Number,
+        default:2
+    },
+    rule_19:{
+        type:Number,
+        default:2
+    },
+    rule_20:{
+        type:Number,
+        default:2
+    },
+    rule_21:{
+        type:Number,
+        default:2
+    },
+    rule_22:{
+        type:Number,
+        default:2
+    },
+    rule_23:{
+        type:Number,
+        default:2
+    },
+    rule_24:{
+        type:Number,
+        default:2
+    },
+    rule_25:{
+        type:Number,
+        default:2
+    },
+    rule_26:{
+        type:Number,
+        default:2
+    },
+    rule_27:{
+        type:Number,
+        default:2
+    },
+    rule_28:{
+        type:Number,
+        default:2
+    },
+    rule_29:{
+        type:Number,
+        default:2
     }
 })
 

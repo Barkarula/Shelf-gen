@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBooks } from '../actions';
-import axios from 'axios';
 
 import BookItem from '../widgetsUI/book_item';
 
@@ -25,6 +24,7 @@ class HomeContainer extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                {this.renderItems(this.props.books)}
@@ -39,7 +39,8 @@ class HomeContainer extends Component {
 
 function mapStateToProps(state){
     return {
-        books:state.books
+        books:state.books,
+        user:state.user
     }
 }
 

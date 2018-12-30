@@ -8,12 +8,10 @@ class EditBook extends PureComponent {
     state = {
         formdata:{
             _id:this.props.match.params.id,
-            name:'',
-            author:'',
-            review:'',
-            pages:'',
-            rating:'',
-            price:''
+            rule_0:'',
+            rule_1:'',
+            rule_2:'',
+            genId:''
         }
     }
 
@@ -59,7 +57,11 @@ class EditBook extends PureComponent {
                 review:book.review,
                 pages:book.pages,
                 rating:book.rating,
-                price:book.price
+                price:book.price,
+                rule_0:book.rule_0,
+                rule_1:book.rule_1,
+                rule_2:book.rule_2,
+                genId:book.genId
             }
         })
     }
@@ -70,7 +72,6 @@ class EditBook extends PureComponent {
 
     render() {
         let books = this.props.books;
-        console.log(this.props);
         return (
             <div className="rl_container article">
                 {
@@ -92,68 +93,56 @@ class EditBook extends PureComponent {
                 }
 
                 <form onSubmit={this.submitForm}>
-                    <h2>Edit review</h2>
+                    <h2>Edit genom</h2>
 
                     <div className="form_element">
                         <input
                             type="text"
-                            placeholder="Enter name"
-                            value={this.state.formdata.name}
-                            onChange={(event)=>this.handleInput(event,'name')}
+                            placeholder="Enter genId"
+                            value={this.state.formdata.genId}
+                            onChange={(event)=>this.handleInput(event,'genId')}
                         />
                     </div>
+
+                    <h3>Это правило rule_0: </h3>
 
                     <div className="form_element">
                         <input
                             type="text"
-                            placeholder="Enter university"
-                            value={this.state.formdata.author}
-                            onChange={(event)=>this.handleInput(event,'author')}
+                            placeholder="Enter rule_0"
+                            value={this.state.formdata.rule_0}
+                            onChange={(event)=>this.handleInput(event,'rule_0')}
                         />
                     </div>
 
-                    <textarea
-                        value={this.state.formdata.review}
-                        onChange={(event)=>this.handleInput(event,'review')}
-                    />
+                    <h3>Это правило rule_1: </h3>
 
                     <div className="form_element">
                         <input
                             type="number"
-                            placeholder="Enter IQ"
-                            value={this.state.formdata.pages}
-                            onChange={(event)=>this.handleInput(event,'pages')}
+                            placeholder="Enter rule_1"
+                            value={this.state.formdata.rule_1}
+                            onChange={(event)=>this.handleInput(event,'rule_1')}
                         />
                     </div>
 
-                    <div className="form_element">
-                        <select
-                            value={this.state.formdata.rating}
-                            onChange={(event)=>this.handleInput(event,'rating')}
-                        >
-                            <option val="1">1</option>
-                            <option val="2">2</option>
-                            <option val="3">3</option>
-                            <option val="4">4</option>
-                            <option val="5">5</option>
-                        </select>
-                    </div>
+                    <h3>Это правило rule_2: </h3>
 
                     <div className="form_element">
                         <input
                             type="number"
-                            placeholder="Enter Gender"
-                            value={this.state.formdata.price}
-                            onChange={(event)=>this.handleInput(event,'price')}
+                            placeholder="Enter rule_2"
+                            value={this.state.formdata.rule_2}
+                            onChange={(event)=>this.handleInput(event,'rule_2')}
                         />
                     </div>
 
-                    <button type="submit">Edit review</button>
+                    <button type="submit">Edit genom</button>
                     <div className="delete_post">
                         <div className="button"
                             onClick={this.deletePost}
                         >
-                            Delete review
+                            Delete genom
                         </div>
                     </div>
                 </form>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addGen, clearNewBook } from '../../actions'
+import { addBook, clearNewBook } from '../../actions'
 
 class AddGen extends Component {
 
@@ -10,7 +10,13 @@ class AddGen extends Component {
             rule_0:'',
             rule_1:'',
             rule_2:'',
-            genId:''
+            genId:'',
+            name:'test name',
+            author:'test author',
+            review:'test review',
+            pages: 123,
+            rating: 3,
+            price: 4
 
         }
     }
@@ -25,13 +31,13 @@ class AddGen extends Component {
             formdata:newFormdata
         })
     }
+    //<Link to={`/gens/${gen.gId}`}>
 
     showNewBook = (book) => (
         book.post ?
             <div className="conf_link">
-                You are add new anketa !! <Link to={`/books/${book.bookId}`}>
-                    Click the link to see the review
-                </Link>
+                You are add new gen !! 
+                    Click the link to see the review <Link to={`/books/${book.bookId}`}>Click the link to see anketa</Link>
             </div>
         :null
     )
@@ -39,7 +45,8 @@ class AddGen extends Component {
 
     submitForm = (e) => {
         e.preventDefault();
-        this.props.dispatch(addGen({
+        //console.log(this.state.formdata)
+        this.props.dispatch(addBook({
             ...this.state.formdata,
             ownerId:this.props.user.login.id
         }))
@@ -50,6 +57,7 @@ class AddGen extends Component {
     }
 
     render() {
+        //console.log(this.props);
         return (
             <div className="rl_container article">
                 <form onSubmit={this.submitForm}>
@@ -64,7 +72,7 @@ class AddGen extends Component {
                         />
                     </div>
 
-                    <h3>Это правило отвечает за резус фактор: </h3>
+                    <h3>Это правило rule_0: </h3>
 
                     <div className="form_element">
                         <input
@@ -75,7 +83,7 @@ class AddGen extends Component {
                         />
                     </div>
 
-                    <h3>Это правило отвечает за рак: </h3>
+                    <h3>Это правило rule_1: </h3>
 
                     <div className="form_element">
                         <input
@@ -86,14 +94,14 @@ class AddGen extends Component {
                         />
                     </div>
 
-                    <h3>Это правило отвечает за восприимчиоваость к лактозе: </h3>
+                    <h3>Это правило rule_2: </h3>
 
                     <div className="form_element">
                         <input
                             type="text"
-                            placeholder="Enter rule_3"
-                            value={this.state.formdata.rule_3}
-                            onChange={(event)=>this.handleInput(event,'rule_3')}
+                            placeholder="Enter rule_2"
+                            value={this.state.formdata.rule_2}
+                            onChange={(event)=>this.handleInput(event,'rule_2')}
                         />
                     </div>
 
@@ -103,11 +111,17 @@ class AddGen extends Component {
                             this.showNewBook(this.props.books.newbook)
                         :null
                     }
+                    <h2>Памятка:</h2>
+                    <h5>0 - это ложь, "ген не плохой"</h5>
+                    <h5>1 - это истина, "ген не плохой"</h5>
+                
                 </form>
             </div>
         );
     }
 }
+
+
 
 function mapStateToProps(state){
     return {

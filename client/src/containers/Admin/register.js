@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { getUsers, userRegister } from '../../actions';
+import { Link } from 'react-router-dom';
 
 class Register extends PureComponent {
 
@@ -9,7 +10,9 @@ class Register extends PureComponent {
         lastname:'',
         email:'',
         password:'',
-        error:''
+        error:'',
+        genId:'',
+        role: 1
     }
 
     componentWillMount(){
@@ -29,6 +32,12 @@ class Register extends PureComponent {
     handleInputLastname = (event) => {
         this.setState({lastname:event.target.value})
     } 
+    handleInputGenId = (event) => {
+        this.setState({genId:event.target.value})
+    } 
+    handleInputRole = (event) => {
+        this.setState({role:event.target.value})
+    } 
 
     componentWillReceiveProps(nextProps){
         if(nextProps.user.register === false){
@@ -38,7 +47,9 @@ class Register extends PureComponent {
                 name:'',
                 lastname:'',
                 email:'',
-                password:''
+                password:'',
+                genId:'',
+                role:1
             })
         }
     }
@@ -51,7 +62,9 @@ class Register extends PureComponent {
             email:this.state.email,
             password:this.state.password,
             name:this.state.name,
-            lastname:this.state.lastname
+            lastname:this.state.lastname,
+            genId:this.state.genId,
+            role:this.state.role
         },this.props.user.users))
         
     }
@@ -63,6 +76,12 @@ class Register extends PureComponent {
                     <td>{item.name}</td>
                     <td>{item.lastname}</td>
                     <td>{item.email}</td>
+                    <td><Link to={
+                        `/user/edit-user/${item._id}`}>
+                        {item.genId}
+                        </Link>
+                    </td>
+                    <td>{item.role}</td>
                 </tr>
             ))
         :null
@@ -112,6 +131,24 @@ class Register extends PureComponent {
                          />
                     </div>
 
+                    <div className="form_element">
+                        <input
+                            type="number"
+                            placeholder="Enter genId"
+                            value={this.state.genId}
+                            onChange={this.handleInputGenId}
+                         />
+                    </div>
+
+                    <div className="form_element">
+                        <input
+                            type="number"
+                            placeholder="Enter Role"
+                            value={this.state.role}
+                            onChange={this.handleInputRole}
+                         />
+                    </div>
+
                     <button type="submit">Add user</button>
                     <div className="error">
                         {this.state.error}
@@ -119,13 +156,15 @@ class Register extends PureComponent {
 
                 </form>
                 <div className="current_users">
-                    <h4>Current admins:</h4>
+                    <h4>Current users:</h4>
                     <table>
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Lastname</th>
                                 <th>Email</th>
+                                <th>genId</th>
+                                <th>role</th>
                             </tr>
                         </thead>
                         <tbody>
